@@ -1,0 +1,61 @@
+# API Gateway Troubleshooting Playbook
+# Safe diagnostic steps for API issues
+
+domain: api
+
+symptoms:
+  slow_response:
+    explanation: |
+      Slow API response indicates backend latency,
+      rate limiting, or gateway resource constraints.
+    diagnostic_steps:
+      - title: Check API gateway health
+        action: Review gateway dashboard/health endpoint
+        expected_output: All nodes healthy
+      - title: Review response time metrics
+        action: Check API latency percentiles
+        expected_output: Compare to SLA thresholds
+      - title: Check backend health
+        action: Verify backend service status
+        expected_output: Backend responding normally
+      - title: Review rate limit status
+        action: Check if rate limits being hit
+        expected_output: Request counts vs limits
+    evidence_checklist:
+      - Gateway health status
+      - Latency percentile graphs
+      - Backend health check results
+      - Rate limit metrics
+    stop_conditions:
+      - Multiple backend services down
+      - Gateway nodes failing health checks
+      - Error rate above 10%
+
+  authentication_failure:
+    explanation: |
+      Authentication failures indicate token issues,
+      identity provider problems, or configuration errors.
+    diagnostic_steps:
+      - title: Check IdP status
+        action: Verify identity provider is accessible
+        expected_output: IdP responding to health checks
+      - title: Review auth error logs
+        action: Check API logs for auth error details
+        expected_output: Specific error codes/messages
+      - title: Verify certificate validity
+        action: Check SSL certs for token validation
+        expected_output: Certificates not expired
+    evidence_checklist:
+      - IdP health status
+      - Auth error log samples
+      - Certificate expiry dates
+      - Token validation test results
+    stop_conditions:
+      - IdP completely unreachable
+      - Certificate expired in production
+      - All auth requests failing
+
+escalation_path: |
+  1. Application Support team
+  2. Identity/Security team (if IdP issue)
+  3. API Platform team

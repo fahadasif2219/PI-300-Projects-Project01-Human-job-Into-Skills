@@ -1,0 +1,53 @@
+# F5 BIG-IP Troubleshooting Playbook
+# Safe diagnostic steps for F5 issues
+
+domain: f5
+
+symptoms:
+  high_cpu:
+    explanation: |
+      High CPU on F5 typically indicates SSL processing load,
+      iRule complexity, or connection spike.
+    diagnostic_steps:
+      - title: Check system performance
+        action: Navigate to Statistics > Performance
+        expected_output: CPU, memory, and throughput metrics
+      - title: Review TMM CPU distribution
+        action: Check per-TMM CPU usage
+        expected_output: Balanced load across TMMs
+      - title: Check SSL transactions
+        action: Review SSL statistics
+        expected_output: SSL TPS within capacity
+    evidence_checklist:
+      - Performance statistics screenshot
+      - TMM CPU breakdown
+      - SSL transaction rate
+      - Top virtual server by connections
+    stop_conditions:
+      - TMM CPU above 90% sustained
+      - Memory exhaustion warnings
+      - Failover events occurring
+
+  certificate_error:
+    explanation: |
+      Certificate errors indicate expired certs, chain issues,
+      or client SSL profile misconfiguration.
+    diagnostic_steps:
+      - title: Check certificate expiry
+        action: Navigate to SSL Certificates list
+        expected_output: Identify expired or expiring certs
+      - title: Verify certificate chain
+        action: Check intermediate certificates are present
+        expected_output: Complete chain from leaf to root
+    evidence_checklist:
+      - Certificate details screenshot
+      - Chain validation results
+      - Client SSL profile configuration
+    stop_conditions:
+      - Production certificate expired
+      - HSM connectivity issues
+
+escalation_path: |
+  1. Tier 2 Network Operations
+  2. F5 Support
+  3. Application team (if app-specific)

@@ -1,0 +1,67 @@
+# Firewall Troubleshooting Playbook
+# Safe diagnostic steps for common firewall issues
+
+domain: firewall
+
+symptoms:
+  high_cpu:
+    explanation: |
+      High CPU on a firewall typically indicates heavy traffic load,
+      connection table exhaustion, or resource-intensive features
+      (logging, IPS inspection, SSL decryption).
+    diagnostic_steps:
+      - title: Check CPU utilization breakdown
+        action: View CPU stats in GUI dashboard or monitoring tool
+        expected_output: Per-process CPU usage to identify hotspot
+      - title: Review connection count
+        action: Check active connections vs maximum capacity
+        expected_output: Connection count below 80% of max
+        warning: Do not clear connections in production
+      - title: Check for traffic spikes
+        action: Review traffic graphs for anomalies
+        expected_output: Traffic patterns consistent with baseline
+      - title: Review enabled features
+        action: List enabled inspection features
+        expected_output: Identify resource-heavy features
+    evidence_checklist:
+      - CPU utilization screenshot with timestamp
+      - Connection count vs capacity
+      - Traffic graph showing spike period
+      - List of enabled features
+    stop_conditions:
+      - CPU sustained above 95% for more than 5 minutes
+      - Connection table at 100% capacity
+      - Device becoming unresponsive
+      - Failover events occurring
+
+  connectivity_loss:
+    explanation: |
+      Connectivity loss through firewall usually indicates rule blocking,
+      routing issues, interface problems, or NAT configuration errors.
+    diagnostic_steps:
+      - title: Verify interface status
+        action: Check all interfaces are up/up in GUI
+        expected_output: All expected interfaces showing up
+      - title: Check for deny logs
+        action: Review firewall logs for denied traffic
+        expected_output: Identify if traffic is being blocked
+      - title: Verify routing table
+        action: View routing table for destination network
+        expected_output: Route exists for destination
+      - title: Check NAT translations
+        action: Review active NAT translations if applicable
+        expected_output: NAT entries present for affected flows
+    evidence_checklist:
+      - Interface status screenshot
+      - Relevant deny log entries
+      - Routing table for affected networks
+      - NAT translation table if applicable
+    stop_conditions:
+      - Multiple interfaces showing down
+      - HA/cluster state inconsistency
+      - Config sync failures detected
+
+escalation_path: |
+  1. Tier 2 Network Operations
+  2. Firewall vendor TAC (if hardware issue suspected)
+  3. Network Engineering team

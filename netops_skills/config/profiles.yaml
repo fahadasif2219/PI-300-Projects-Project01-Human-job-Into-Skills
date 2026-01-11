@@ -1,0 +1,103 @@
+# NetOps Skills - Reusable Profiles
+# Save common settings to minimize repeated input
+
+# =============================================================================
+# ENGINEER PROFILES
+# =============================================================================
+engineers:
+  default:
+    name: "Network Engineer"
+    team: "NOC"
+    email: "noc@company.com"
+    phone: "x1234"
+
+  # Example profiles - customize for your team
+  tier1:
+    name: "Tier 1 Engineer"
+    team: "NOC Tier 1"
+    escalation_contact: "NOC Tier 2"
+
+  tier2:
+    name: "Tier 2 Engineer"
+    team: "NOC Tier 2"
+    escalation_contact: "Engineering"
+
+# =============================================================================
+# TEAM PROFILES
+# =============================================================================
+teams:
+  noc:
+    name: "Network Operations Center"
+    distribution_list: "noc-team@company.com"
+    manager: "NOC Manager"
+
+  security:
+    name: "Security Operations"
+    distribution_list: "secops@company.com"
+    manager: "Security Manager"
+
+# =============================================================================
+# CLIENT PROFILES
+# =============================================================================
+clients:
+  internal:
+    name: "Internal Users"
+    sla_response: "4 hours"
+    communication_preference: "email"
+
+  enterprise:
+    name: "Enterprise Client"
+    sla_response: "1 hour"
+    communication_preference: "phone + email"
+
+# =============================================================================
+# DEVICE PROFILES
+# =============================================================================
+devices:
+  firewall:
+    vendor: "Generic"
+    access_method: "GUI"
+    safe_commands:
+      - show running-config
+      - show interfaces
+      - show connections
+      - show cpu
+      - show memory
+
+  f5:
+    vendor: "F5"
+    access_method: "GUI"
+    safe_commands:
+      - tmsh show sys performance
+      - tmsh show ltm pool
+      - tmsh show ltm virtual
+
+  fmc:
+    vendor: "Cisco"
+    access_method: "GUI"
+    safe_commands:
+      - Check Health Monitor
+      - View Deployed Policies
+      - Check Device Status
+
+# =============================================================================
+# ENVIRONMENT PROFILES
+# =============================================================================
+environments:
+  prod:
+    name: "Production"
+    change_window: "Scheduled maintenance only"
+    approval_required: true
+    rollback_mandatory: true
+
+  uat:
+    name: "User Acceptance Testing"
+    change_window: "Business hours"
+    approval_required: true
+    rollback_mandatory: true
+
+  dev:
+    name: "Development"
+    change_window: "Anytime"
+    approval_required: false
+    rollback_mandatory: false

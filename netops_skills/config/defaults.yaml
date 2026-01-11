@@ -1,0 +1,146 @@
+# NetOps Skills - Default Values
+# These defaults minimize typing by pre-filling common values
+
+# =============================================================================
+# INCIDENT UPDATE COMPOSER DEFAULTS
+# =============================================================================
+incident:
+  audience: manager
+  severity: P2
+  current_status: investigating
+
+  # Selectable options for each field
+  options:
+    audience:
+      - manager
+      - client
+      - internal
+      - executive
+    severity:
+      - P1
+      - P2
+      - P3
+      - P4
+    current_status:
+      - investigating
+      - identified
+      - monitoring
+      - resolved
+      - escalated
+
+  # Auto-generated next steps based on status
+  next_steps:
+    investigating:
+      - Continue root cause analysis
+      - Gather additional diagnostic data
+      - Engage vendor support if needed
+    identified:
+      - Implement corrective action
+      - Monitor for recurrence
+      - Document findings
+    monitoring:
+      - Continue monitoring for stability
+      - Prepare post-incident report
+      - Schedule follow-up review
+    escalated:
+      - Await response from escalation team
+      - Prepare additional context if requested
+      - Continue parallel investigation
+    resolved:
+      - Confirm resolution with affected users
+      - Complete post-incident documentation
+      - Schedule root cause review
+
+  # Default next update time based on severity
+  next_update_time:
+    P1: "30 minutes"
+    P2: "1 hour"
+    P3: "4 hours"
+    P4: "Next business day"
+
+  # Evidence checklist when no evidence provided (maintainable)
+  evidence_checklist:
+    - Screenshots of error messages/alerts
+    - Relevant log entries with timestamps
+    - Network diagrams if applicable
+    - Configuration snippets (sanitized)
+    - Timeline of events
+
+# =============================================================================
+# RUNBOOK GENERATOR DEFAULTS
+# =============================================================================
+runbook:
+  access_mode: gui_only
+  environment: prod
+
+  options:
+    domain:
+      - firewall
+      - fmc
+      - f5
+      - circuit
+      - api
+      - vpn
+      - dns
+      - routing
+    symptom_category:
+      - high_cpu
+      - high_memory
+      - connectivity_loss
+      - slow_response
+      - authentication_failure
+      - certificate_error
+      - failover_event
+      - config_mismatch
+    access_mode:
+      - gui_only
+      - cli_read_only
+      - cli_full
+    environment:
+      - prod
+      - uat
+      - dev
+      - lab
+
+# =============================================================================
+# FCR AUTOFILL DEFAULTS
+# =============================================================================
+fcr:
+  change_type: firewall_rule
+  rule_count: single
+  direction: inbound
+  risk_level: low
+  environment: prod
+
+  options:
+    change_type:
+      - firewall_rule
+      - nat_change
+      - f5_ssl
+      - routing_change
+      - acl_update
+      - vpn_config
+    rule_count:
+      - single
+      - multiple
+    direction:
+      - inbound
+      - outbound
+      - bidirectional
+    risk_level:
+      - low
+      - medium
+      - high
+    environment:
+      - prod
+      - uat
+      - dev
+      - dr
+
+# =============================================================================
+# COMMON DEFAULTS
+# =============================================================================
+common:
+  timezone: UTC
+  date_format: "%Y-%m-%d %H:%M %Z"
+  company_name: "Network Operations Center"

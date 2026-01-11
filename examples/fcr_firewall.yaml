@@ -1,0 +1,11 @@
+# Example: Firewall Rule FCR
+# Only 1 required typed field - everything else uses defaults
+
+purpose: management access
+
+# Optional - these all have smart defaults if omitted:
+# change_type: firewall_rule  # default
+# rule_count: single          # default
+# direction: inbound          # default
+# risk_level: low             # default
+# environment: prod           # default

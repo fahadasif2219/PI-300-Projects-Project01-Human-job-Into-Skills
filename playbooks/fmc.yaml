@@ -1,0 +1,52 @@
+# Cisco FMC Troubleshooting Playbook
+# Safe diagnostic steps for FMC issues
+
+domain: fmc
+
+symptoms:
+  high_cpu:
+    explanation: |
+      High CPU on FMC typically indicates policy deployment in progress,
+      database operations, or event processing backlog.
+    diagnostic_steps:
+      - title: Check system health
+        action: Navigate to System > Health > Health Monitor
+        expected_output: All health modules showing green
+      - title: Review running tasks
+        action: Check Message Center for active tasks
+        expected_output: Identify any long-running deployments
+      - title: Check event backlog
+        action: Review event processing status
+        expected_output: Events processing without significant delay
+    evidence_checklist:
+      - Health Monitor screenshot
+      - Active tasks list
+      - Event rate statistics
+    stop_conditions:
+      - Health Monitor showing critical alerts
+      - Database corruption warnings
+      - HA sync failures
+
+  connectivity_loss:
+    explanation: |
+      Device connectivity loss to FMC indicates network issues,
+      tunnel problems, or managed device health issues.
+    diagnostic_steps:
+      - title: Check device status
+        action: Navigate to Devices > Device Management
+        expected_output: All devices showing connected status
+      - title: Review device health
+        action: Check health status of affected device
+        expected_output: Identify specific health issues
+    evidence_checklist:
+      - Device Management status screenshot
+      - Device health details
+      - Network connectivity test results
+    stop_conditions:
+      - Multiple devices offline simultaneously
+      - FMC HA status degraded
+
+escalation_path: |
+  1. Tier 2 Network Operations
+  2. Cisco TAC
+  3. Security Engineering team

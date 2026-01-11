@@ -1,0 +1,13 @@
+# Example: P2 Incident Update
+# Only 2 required typed fields - everything else uses defaults
+
+incident_title: VPN authentication intermittent
+impact_summary: Users experiencing login failures
+
+# Optional - these all have smart defaults if omitted:
+# audience: manager       # default
+# severity: P2            # default
+# current_status: investigating  # default
+# next_update_time: auto-filled based on severity
+# checks_done: []
+# evidence: []

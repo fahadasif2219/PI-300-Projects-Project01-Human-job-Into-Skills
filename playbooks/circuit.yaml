@@ -1,0 +1,61 @@
+# Circuit/WAN Troubleshooting Playbook
+# Safe diagnostic steps for circuit issues
+
+domain: circuit
+
+symptoms:
+  connectivity_loss:
+    explanation: |
+      Circuit connectivity loss indicates physical layer issues,
+      provider problems, or CPE device failures.
+    diagnostic_steps:
+      - title: Check interface status
+        action: Verify physical interface state on CPE
+        expected_output: Interface up/up with light levels normal
+      - title: Review circuit monitoring
+        action: Check NMS for circuit status/alerts
+        expected_output: Identify when issue started
+      - title: Check provider status page
+        action: Review carrier status portal
+        expected_output: Identify any provider outages
+      - title: Verify BGP/routing status
+        action: Check routing protocol state if applicable
+        expected_output: BGP sessions established
+    evidence_checklist:
+      - Interface status and light levels
+      - Circuit monitoring graph
+      - Provider ticket number if opened
+      - BGP neighbor status
+    stop_conditions:
+      - Physical damage suspected
+      - Multiple circuits to same provider affected
+      - Provider confirms extended outage
+
+  slow_response:
+    explanation: |
+      Slow response over circuit indicates congestion,
+      packet loss, or latency issues.
+    diagnostic_steps:
+      - title: Check bandwidth utilization
+        action: Review circuit utilization graphs
+        expected_output: Utilization percentage over time
+      - title: Measure latency
+        action: Check latency monitoring data
+        expected_output: Compare to baseline latency
+      - title: Check for packet loss
+        action: Review packet loss statistics
+        expected_output: Loss percentage if any
+    evidence_checklist:
+      - Bandwidth utilization graph
+      - Latency measurements
+      - Packet loss statistics
+      - Traceroute results
+    stop_conditions:
+      - Sustained 100% utilization
+      - Packet loss above 5%
+      - Latency 3x baseline
+
+escalation_path: |
+  1. Contact carrier NOC with circuit ID
+  2. Tier 2 Network Operations
+  3. Network Engineering for capacity review

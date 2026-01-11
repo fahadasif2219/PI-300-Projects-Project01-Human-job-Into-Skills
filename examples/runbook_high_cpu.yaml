@@ -1,0 +1,9 @@
+# Example: High CPU Runbook Request
+# Only 2 required selections - everything else uses defaults
+
+domain: firewall
+symptom_category: high_cpu
+
+# Optional - these all have smart defaults if omitted:
+# access_mode: gui_only   # default - no disruptive commands
+# environment: prod       # default
