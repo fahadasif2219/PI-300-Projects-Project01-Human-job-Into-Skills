@@ -1,3 +1,5 @@
+Subject: Incident Update - {{ incident_title }} ({{ severity }})
+
 # INCIDENT STATUS UPDATE
 
 ## Management Snapshot
@@ -26,22 +28,26 @@ Services remain impacted while diagnostics continue.
 
 ---
 
-## Actions Completed
+{% if checks_done %}
+## Diagnostic Checks Completed
 {% for check in checks_done %}
 - {{ check }}
 {% endfor %}
-{% if not checks_done %}
+{% else %}
+## Actions Completed
 - Initial connectivity and monitoring checks completed
 - Incident scoped and ownership established
 {% endif %}
 
 ---
 
-## Evidence Available / To Be Collected
+{% if evidence %}
+## Evidence Collected
 {% for item in evidence %}
 - {{ item }}
 {% endfor %}
-{% if not evidence %}
+{% else %}
+## Evidence To Collect
 - Monitoring alerts and timestamps
 - Firewall and VPN session statistics
 - Interface and tunnel health indicators
